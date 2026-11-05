@@ -1,0 +1,35 @@
+{
+  "name": "tanpanama-studio",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "app/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "ci": "bun run lint && bun run typecheck && bun run test",
+    "deploy": "bun --env-file=.env --env-file=app/tanpanama-fe/.env --env-file=app/tanpanama-api/.env --env-file=app/tanpanama-admin/.env --bun alchemy deploy --stage prod --yes",
+    "dev": "bun run --filter @tanpanama/tanpanama-fe dev",
+    "dev:admin": "bun run --filter @tanpanama/tanpanama-admin dev",
+    "dev:stack": "bun --env-file=.env --env-file=app/tanpanama-fe/.env --env-file=app/tanpanama-api/.env --env-file=app/tanpanama-admin/.env --bun alchemy dev",
+    "format": "ultracite fix",
+    "lint": "ultracite check",
+    "prepare": "lefthook install",
+    "test": "bun test",
+    "typecheck": "bun run --filter @tanpanama/tanpanama-fe typecheck && bun run --filter @tanpanama/tanpanama-admin typecheck && bun run --filter @tanpanama/tanpanama-api typecheck && bun run --filter @tanpanama/contracts typecheck"
+  },
+  "devDependencies": {
+    "@alchemy.run/cloudflare": "2.0.0-beta.85",
+    "@alchemy.run/frontend-frameworks": "2.0.0-beta.85",
+    "@biomejs/biome": "2.5.15",
+    "@effect/platform-bun": "4.1.2",
+    "@types/bun": "^1.4.4",
+    "alchemy": "2.0.0-beta.85",
+    "effect": "4.1.2",
+    "lefthook": "latest",
+    "typescript": "^5.9.0",
+    "ultracite": "8.0.2"
+  },
+  "packageManager": "bun@1.4.4"
+}

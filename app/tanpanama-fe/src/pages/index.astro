@@ -1,0 +1,438 @@
+---
+// biome-ignore-all lint/suspicious/noUnknownAttribute: Astro templates use native HTML attributes.
+import { env } from "cloudflare:workers";
+import type { Project } from "@tanpanama/contracts";
+import { projectListSchema } from "@tanpanama/contracts";
+import ProjectCard from "../components/project-card.astro";
+import BaseLayout from "../layouts/base-layout.astro";
+
+const apiUrl = env.PUBLIC_API_URL ?? import.meta.env.PUBLIC_API_URL;
+let projects: Project[] = [];
+let projectsAvailable = false;
+
+if (apiUrl) {
+  try {
+    const response = await fetch(new URL("/api/projects", apiUrl));
+    if (!response.ok) {
+      throw new Error("Project request failed.");
+    }
+    projects = projectListSchema.parse(await response.json());
+    projectsAvailable = true;
+  } catch {
+    projectsAvailable = false;
+  }
+}
+
+const featured = projects.find((project) => project.featured);
+const otherProjects = projects
+  .filter((project) => project.id !== featured?.id)
+  .slice(0, 2);
+---
+
+<BaseLayout>
+  <header class="site-header page-shell">
+    <a aria-label="Tanpa Nama Studio home" class="wordmark" href="#top"
+      ><span>TANPA NAMA</span><strong>STUDIO</strong></a
+    >
+    <nav aria-label="Main navigation" class="primary-nav">
+      <a href="#work">Work</a>
+      <a href="#expertise">Expertise</a>
+      <a href="#studio">Studio</a>
+    </nav>
+    <a class="talk-link" href="#contact"
+      >Let’s talk <span aria-hidden="true">↗</span></a
+    >
+    <details class="mobile-nav">
+      <summary>Menu</summary>
+      <nav aria-label="Mobile navigation">
+        <a href="#work">Work</a><a href="#expertise">Expertise</a
+        ><a href="#studio">Studio</a><a href="#contact">Let’s talk</a>
+      </nav>
+    </details>
+  </header>
+
+  <main id="top">
+    <div class="page-shell">
+      <section aria-labelledby="hero-title" class="hero">
+        <h1 class="hero-title" id="hero-title">
+          <span class="hero-row hero-row-one"
+            ><span>Complex</span
+            ><span aria-hidden="true" class="hero-blocks wide"></span></span
+          >
+          <span class="hero-row hero-row-two"
+            ><span aria-hidden="true" class="hero-blocks short"></span
+            ><em>business,</em
+            ><span aria-hidden="true" class="hero-blocks"></span></span
+          >
+          <span class="hero-row hero-row-three"
+            ><span aria-hidden="true" class="hero-blocks"></span
+            ><span>Clear</span
+            ><span aria-hidden="true" class="hero-blocks short"></span></span
+          >
+        </h1>
+        <div
+          aria-label="A traveller carries a worn leather bag, marked with bright lime lettering"
+          class="hero-photo"
+          role="img"
+        ></div>
+        <div class="hero-summary">
+          <p>
+            We turn complicated B2B propositions into brands people understand,
+            websites they use, and stories they remember.
+          </p>
+          <a class="text-link" href="#work"
+            >Explore our work <span aria-hidden="true">↗</span></a
+          >
+        </div>
+      </section>
+
+      <section aria-labelledby="territory-title" class="territory">
+        <p class="eyebrow">01 / Our territory</p>
+        <p class="territory-copy" id="territory-title">
+          For the companies behind the companies. The systems, services and
+          specialists that keep the world working.
+        </p>
+      </section>
+
+      <section aria-labelledby="work-title" class="work-section" id="work">
+        <div class="section-heading">
+          <h2 id="work-title">Work, not words.</h2>
+          <p class="eyebrow">02 / Selected projects, 2024–26</p>
+        </div>
+        {featured ? (
+          <>
+            <article class="feature-project">
+              <div
+                aria-label={`${featured.category} case study photograph`}
+                class="feature-photo"
+                data-image={featured.image}
+                role="img"
+              >
+                {featured.imageUrl ? (
+                  <img
+                    alt=""
+                    height="800"
+                    src={featured.imageUrl}
+                    width="1200"
+                  />
+                ) : null}
+                <span class="photo-title">{featured.title}</span>
+                <span class="photo-caption">
+                  Always moving.
+                  <br />
+                  Never standing still.
+                </span>
+              </div>
+              <a class="feature-copy" href="#contact">
+                <div class="project-meta">
+                  <span>{featured.title}</span>
+                  <span>{featured.year}</span>
+                </div>
+                <h3>
+                  A better way
+                  <br />
+                  from A to B.
+                </h3>
+                <svg
+                  aria-hidden="true"
+                  class="route-mark"
+                  viewBox="0 0 320 140"
+                >
+                  <path
+                    d="M4 112h92l96-94h124v54"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="8"
+                  />
+                </svg>
+                <div class="feature-foot">
+                  <span>{featured.category}</span>
+                  <span>Project 01 / 03</span>
+                </div>
+              </a>
+            </article>
+            <div class="project-description">
+              <h3>
+                {featured.title}
+                <span class="eyebrow">
+                  {featured.category} / Brand & digital / {featured.year}
+                </span>
+              </h3>
+              <p>{featured.description}</p>
+              <span class="project-count">Project 01 / 03</span>
+            </div>
+          </>
+        ) : (
+          <div class="empty-projects" role="status">
+            {projectsAvailable
+              ? "Selected projects are being prepared."
+              : "Selected work is temporarily unavailable."}
+          </div>
+        )}
+        {otherProjects.length > 0 && (
+          <div class="project-grid">
+            {otherProjects.map((project) => (
+              <ProjectCard project={project} />
+            ))}
+          </div>
+        )}
+        {projectsAvailable && (
+          <div class="more-work">
+            <a class="text-link" href="#contact">
+              More work on request <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        )}
+      </section>
+    </div>
+
+    <section
+      aria-labelledby="services-title"
+      class="dark-section"
+      id="expertise"
+    >
+      <div class="services page-shell">
+        <div class="service-intro">
+          <p class="eyebrow">03 / What we do</p>
+          <h2 id="services-title">
+            The right words.<br>The right form.<br>The whole picture.
+          </h2>
+          <p>
+            From the first strategic question to the last line of code. One
+            connected team, no lost-in-translation handovers.
+          </p>
+          <a class="text-link" href="#contact"
+            >Discuss your brief <span aria-hidden="true">↗</span></a
+          >
+        </div>
+        <div class="service-list">
+          <article class="service-item">
+            <span class="service-number">01</span>
+            <div>
+              <h3>Find your position.</h3>
+              <p>
+                Get specific about what you do, who it matters to, and why they
+                should choose you. A useful foundation, not a 100-page deck.
+              </p>
+              <small
+                >Research / Positioning / Brand architecture / Messaging</small
+              >
+            </div>
+            <span aria-hidden="true" class="service-arrow">↗</span>
+          </article>
+          <article class="service-item">
+            <span class="service-number">02</span>
+            <div>
+              <h3>Give it expression.</h3>
+              <p>
+                Build an identity that makes your difference tangible.
+                Distinctive enough to be noticed. Practical enough to be used
+                every day.
+              </p>
+              <small
+                >Naming / Visual identity / Verbal identity / Brand
+                systems</small
+              >
+            </div>
+            <span aria-hidden="true" class="service-arrow">↗</span>
+          </article>
+          <article class="service-item">
+            <span class="service-number">03</span>
+            <div>
+              <h3>Put it to work.</h3>
+              <p>
+                Turn your brand into a clear digital experience, built around
+                real buyer questions and the people who’ll keep it running.
+              </p>
+              <small
+                >UX & content / Web design / Development / Launch support</small
+              >
+            </div>
+            <span aria-hidden="true" class="service-arrow">↗</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="page-shell">
+      <section aria-labelledby="process-title" class="process">
+        <div class="process-head">
+          <div>
+            <p class="eyebrow">04 / How we work</p>
+            <h2 id="process-title">Less theatre.<br>More working together.</h2>
+          </div>
+          <p>
+            You work directly with the people doing the work. No pitch team that
+            disappears. No layers of account management. Just a clear process
+            and honest conversations.
+          </p>
+        </div>
+        <div class="process-grid">
+          <article class="process-step">
+            <div class="process-step-head">
+              <span>01</span><span>Understand</span>
+            </div>
+            <h3>Get close.</h3>
+            <p>
+              We talk to your team, your customers and the people who haven’t
+              chosen you. We read the technical documents, too.
+            </p>
+            <small>A shared understanding of the problem.</small>
+          </article>
+          <article class="process-step">
+            <div class="process-step-head">
+              <span>02</span><span>Define</span>
+            </div>
+            <h3>Make a choice.</h3>
+            <p>
+              We find the strongest, most credible position you can own. Then
+              agree on a clear direction before designing anything.
+            </p>
+            <small>A position everyone can get behind.</small>
+          </article>
+          <article class="process-step">
+            <div class="process-step-head">
+              <span>03</span><span>Design & build</span>
+            </div>
+            <h3>Make it real.</h3>
+            <p>
+              Strategy becomes language, identity and digital experience. We
+              share work early, test the important things and refine together.
+            </p>
+            <small>A coherent, working brand system.</small>
+          </article>
+          <article class="process-step">
+            <div class="process-step-head">
+              <span>04</span><span>Equip & launch</span>
+            </div>
+            <h3>Make it last.</h3>
+            <p>
+              We leave your team with the tools, training and documentation to
+              do good work without us. And stay close when you need us.
+            </p>
+            <small>A confident launch. A capable team.</small>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="quote-title" class="testimonial">
+        <div>
+          <p class="eyebrow">05 / From the other side</p>
+          <span aria-hidden="true" class="quote-mark">“</span>
+        </div>
+        <div class="quote-copy">
+          <blockquote id="quote-title">
+            They understood the business before they touched the brand. For the
+            first time, our sales team and our website are telling the same
+            story.
+          </blockquote>
+          <div class="quote-credit">
+            <p>Anna Keller<small>Commercial Director, Northline</small></p>
+            <a href="#contact">NORTHLINE ↗</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section aria-labelledby="studio-title" class="studio" id="studio">
+      <div class="studio-inner page-shell">
+        <div
+          aria-label="A small creative team working together around a studio table"
+          class="studio-photo"
+          role="img"
+        ></div>
+        <div class="studio-copy">
+          <p class="eyebrow">06 / The studio</p>
+          <h2 id="studio-title">Small by choice.<br>Senior by default.</h2>
+          <p>
+            Measure is an independent team of strategists, designers and
+            developers. We started in 2018 with a simple idea:
+            business-to-business doesn’t have to mean business-as-usual.
+          </p>
+          <p>
+            We’re interested in the difficult-to-explain, the overlooked and the
+            genuinely useful. Our job is to find what matters in your business
+            and give it the attention it deserves.
+          </p>
+          <div class="studio-stats">
+            <div><strong>2026</strong><span>Established</span></div>
+            <div><strong>06</strong><span>Core team</span></div>
+            <div><strong>100%</strong><span>Independent</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="page-shell">
+      <section aria-labelledby="help-title" class="help">
+        <div>
+          <p class="eyebrow">07 / Where we can help</p>
+          <h2 class="help-title" id="help-title">
+            At a turning point? Good place to start.
+          </h2>
+        </div>
+        <div class="help-grid">
+          <article class="help-card">
+            <h3>A new chapter.</h3>
+            <p>
+              A launch, a merger or a shift in direction. We help you articulate
+              what’s next and build a brand to match.
+            </p>
+            <small>Positioning → Identity → Website</small>
+          </article>
+          <article class="help-card">
+            <h3>A better digital home.</h3>
+            <p>
+              Your business has moved on. Your website hasn’t. We rethink the
+              story, structure and experience.
+            </p>
+            <small>Content → Design → Development</small>
+          </article>
+          <article class="help-card">
+            <h3>A team alongside yours.</h3>
+            <p>
+              For brands we’ve helped build, we stay involved. A senior creative
+              partner for the work that comes next.
+            </p>
+            <small>Ongoing brand & digital support</small>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="dark-section" id="contact">
+    <div class="contact page-shell">
+      <p class="eyebrow">08 / Next conversation</p>
+      <div class="contact-main">
+        <h2>Let’s make<br>it make sense.</h2>
+        <div>
+          <p class="contact-note">
+            Tell us what’s changing in your business. We’ll tell you honestly
+            how we can help.
+          </p>
+          <a class="email-link" href="mailto:hello@tanpanama.studio"
+            >hello@tanpanama.studio <span aria-hidden="true">↗</span></a
+          >
+          <p class="contact-caption">No deck required. A few lines will do.</p>
+        </div>
+      </div>
+      <div class="footer-top">
+        <span>Indonesia</span>
+        <div class="footer-links">
+          <a href="#contact">LinkedIn ↗</a>　<a href="#contact">Instagram ↗</a>
+        </div>
+      </div>
+      <div class="footer-top">
+        <a class="wordmark footer-brand" href="#top"
+          ><span>TANPA NAMA</span><strong>STUDIO</strong></a
+        >
+      </div>
+      <div class="footer-bottom">
+        <span>© Tanpa Nama Studio 2026</span
+        ><span>Independent thinking. Considered design.</span
+        ><a href="#contact">Privacy & cookies</a>
+      </div>
+    </div>
+  </footer>
+</BaseLayout>

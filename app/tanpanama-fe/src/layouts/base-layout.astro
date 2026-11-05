@@ -1,0 +1,28 @@
+---
+// biome-ignore-all lint/suspicious/noUnknownAttribute: Astro templates use native HTML attributes.
+import "../styles/global.css";
+
+interface Props {
+  description?: string;
+  title?: string;
+}
+
+const {
+  title = "Tanpa Nama Studio — Independent thinking. Considered design.",
+  description = "We turn complicated B2B propositions into brands people understand, websites they use, and stories they remember.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content={description} name="description">
+    <meta content="#f1f0e9" name="theme-color">
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,85 @@
+@import "tailwindcss";
+@import "@fontsource-variable/montserrat";
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --font-sans: "Montserrat Variable", sans-serif;
+}
+
+:root {
+  --background: #f1f0e9;
+  --foreground: #20211e;
+  --card: #f7f6f0;
+  --card-foreground: #20211e;
+  --primary: #20211e;
+  --primary-foreground: #f1f0e9;
+  --secondary: #e5e4dc;
+  --secondary-foreground: #20211e;
+  --muted: #e5e4dc;
+  --muted-foreground: #6a6b63;
+  --accent: #beff00;
+  --accent-foreground: #20211e;
+  --border: #c7c8bf;
+  --input: #c7c8bf;
+  --ring: #7eaa00;
+}
+
+.dark {
+  --background: #20211e;
+  --foreground: #f1f0e9;
+  --card: #292a26;
+  --card-foreground: #f1f0e9;
+  --primary: #beff00;
+  --primary-foreground: #20211e;
+  --secondary: #34352f;
+  --secondary-foreground: #f1f0e9;
+  --muted: #34352f;
+  --muted-foreground: #b2b3aa;
+  --accent: #beff00;
+  --accent-foreground: #20211e;
+  --border: #4b4c44;
+  --input: #4b4c44;
+  --ring: #beff00;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  font-family: "Montserrat Variable", sans-serif;
+  color: var(--foreground);
+  background: var(--background);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  color: var(--accent-foreground);
+  background: var(--accent);
+}

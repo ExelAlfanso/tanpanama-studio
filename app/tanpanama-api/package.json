@@ -1,0 +1,27 @@
+{
+  "name": "@tanpanama/tanpanama-api",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./rpc": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "routes": "hono routes src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hono/zod-validator": "latest",
+    "@tanpanama/contracts": "workspace:*",
+    "better-auth": "latest",
+    "drizzle-orm": "latest",
+    "hono": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "latest",
+    "@hono/cli": "next",
+    "drizzle-kit": "latest",
+    "typescript": "latest"
+  }
+}

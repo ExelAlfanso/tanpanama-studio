@@ -1,0 +1,39 @@
+{
+  "name": "@tanpanama/tanpanama-admin",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite --host 0.0.0.0 --port 3001",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fontsource-variable/montserrat": "latest",
+    "@radix-ui/react-slot": "latest",
+    "@tanpanama/contracts": "workspace:*",
+    "@tanpanama/tanpanama-api": "workspace:*",
+    "@tanstack/react-form": "latest",
+    "@tanstack/react-router": "latest",
+    "@tanstack/react-start": "latest",
+    "better-auth": "latest",
+    "class-variance-authority": "latest",
+    "clsx": "latest",
+    "hono": "latest",
+    "lucide-react": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "tailwind-merge": "latest",
+    "zustand": "latest"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "latest",
+    "@tailwindcss/vite": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@vitejs/plugin-react": "latest",
+    "shadcn": "latest",
+    "tailwindcss": "latest",
+    "typescript": "^5.9.0",
+    "vite": "latest"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "@tanpanama/tanpanama-fe",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0 --port 4321",
+    "typecheck": "astro check"
+  },
+  "dependencies": {
+    "@fontsource-variable/montserrat": "latest",
+    "@tanpanama/contracts": "workspace:*",
+    "astro": "latest"
+  },
+  "devDependencies": {
+    "@astrojs/check": "latest",
+    "@cloudflare/workers-types": "latest",
+    "@tailwindcss/vite": "latest",
+    "tailwindcss": "latest",
+    "typescript": "^5.9.0"
+  }
+}

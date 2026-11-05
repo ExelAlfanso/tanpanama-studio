@@ -1,0 +1,22 @@
+# Dependencies and generated output
+/node_modules/
+/app/*/node_modules/
+/dist/
+/.astro/
+/.wrangler/
+/.alchemy/
+/app/*/dist/
+/app/*/.astro/
+/app/*/.wrangler/
+/alchemy.run.ts.timestamp-*.mjs
+
+# Local credentials and platform settings
+.env
+.env.*
+!.env.example
+!**/.env.example
+**/.dev.vars
+*.pem
+
+# Local orchestration state
+/.orchestration/
