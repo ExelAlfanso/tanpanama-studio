@@ -1,5 +1,6 @@
 ---
 // biome-ignore-all lint/suspicious/noUnknownAttribute: Astro templates use native HTML attributes.
+import "lenis/dist/lenis.css";
 import "../styles/global.css";
 
 interface Props {
@@ -24,5 +25,11 @@ const {
   </head>
   <body>
     <slot />
+    <script>
+      import Lenis from "lenis";
+
+      // biome-ignore lint/correctness/noUnusedInstantiation: Lenis attaches to the page and runs its own animation loop.
+      new Lenis({ autoRaf: true, respectReducedMotion: true });
+    </script>
   </body>
 </html>

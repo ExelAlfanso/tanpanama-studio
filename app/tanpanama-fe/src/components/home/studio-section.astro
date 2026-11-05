@@ -1,0 +1,35 @@
+---
+// biome-ignore-all lint/suspicious/noUnknownAttribute: Astro templates use native HTML attributes.
+type Props = Record<string, never>;
+---
+
+<section aria-labelledby="studio-title" class="studio" id="studio">
+  <div class="studio-inner page-shell">
+    <div class="photo-frame">
+      <div
+        aria-label="A small creative team working together around a studio table"
+        class="studio-photo"
+        role="img"
+      ></div>
+    </div>
+    <div class="studio-copy">
+      <p class="eyebrow">06 / The studio</p>
+      <h2 id="studio-title">Small by choice.<br>Senior by default.</h2>
+      <p>
+        Measure is an independent team of strategists, designers and developers.
+        We started in 2018 with a simple idea: business-to-business doesn’t have
+        to mean business-as-usual.
+      </p>
+      <p>
+        We’re interested in the difficult-to-explain, the overlooked and the
+        genuinely useful. Our job is to find what matters in your business and
+        give it the attention it deserves.
+      </p>
+      <div class="studio-stats">
+        <div><strong>2026</strong><span>Established</span></div>
+        <div><strong>06</strong><span>Core team</span></div>
+        <div><strong>100%</strong><span>Independent</span></div>
+      </div>
+    </div>
+  </div>
+</section>

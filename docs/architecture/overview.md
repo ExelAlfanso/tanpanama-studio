@@ -19,7 +19,7 @@ alchemy.run.ts          # D1, R2, API, public-site, and admin Workers
 ## Boundaries
 
 - `tanpanama-fe` renders the marketing pages on the server at `tanpanama.alfanso.xyz`.
-- `tanpanama-admin` runs the CMS at `admin.tanpanama.alfanso.xyz`. TanStack Start routes all `/api/*` requests through a same-origin server proxy so OAuth callbacks and session cookies remain on the admin hostname. TanStack Router owns file routes, TanStack Form owns the project editor, shadcn/ui provides admin components, and Zustand persists the color theme.
+- `tanpanama-admin` runs the CMS at `admin-tanpanama.alfanso.xyz`. TanStack Start routes all `/api/*` requests through a same-origin server proxy so OAuth callbacks and session cookies remain on the admin hostname. TanStack Router owns file routes, TanStack Form owns the project editor, shadcn/ui provides admin components, and Zustand persists the color theme.
 - `tanpanama-api` owns authentication, authorization, project validation, and writes. Public project reads are open; admin CRUD and uploads check both Better Auth session and the configured email allowlist on every request.
 - `packages/contracts` owns Zod request/response schemas shared across the boundary. The admin imports the Hono `AppType` with a type-only import for RPC inference; no backend implementation enters the browser bundle.
 - Cloudflare D1 is shared by Better Auth and the Drizzle CMS repository. Its `image_url` column stores the public API URL for each uploaded CMS image.

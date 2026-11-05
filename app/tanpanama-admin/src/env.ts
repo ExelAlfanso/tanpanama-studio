@@ -4,9 +4,12 @@ import type { AdminEnv } from "../../../alchemy.run";
 
 export const env = new Proxy({} as AdminEnv, {
   get(_, property: string) {
-    if (property === "API_URL" && import.meta.env.VITE_API_URL) {
+    const binding = cloudflare.env?.[property as keyof typeof cloudflare.env];
+    if (binding !== undefined) {
+      return binding;
+    }
+    if (property === "API_URL" && import.meta.env.DEV) {
       return import.meta.env.VITE_API_URL;
     }
-    return cloudflare.env[property as keyof typeof cloudflare.env];
   },
 });

@@ -1,0 +1,23 @@
+---
+// biome-ignore-all lint/suspicious/noUnknownAttribute: Astro templates use native HTML attributes.
+type Props = Record<string, never>;
+---
+
+<div class="page-shell">
+  <section aria-labelledby="quote-title" class="testimonial">
+    <div>
+      <p class="eyebrow">05 / From the other side</p>
+      <span aria-hidden="true" class="quote-mark">“</span>
+    </div>
+    <div class="quote-copy">
+      <blockquote id="quote-title">
+        They understood the business before they touched the brand. For the
+        first time, our sales team and our website are telling the same story.
+      </blockquote>
+      <div class="quote-credit">
+        <p>Anna Keller<small>Commercial Director, Northline</small></p>
+        <a href="#contact">NORTHLINE ↗</a>
+      </div>
+    </div>
+  </section>
+</div>

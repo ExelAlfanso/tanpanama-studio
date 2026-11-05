@@ -15,22 +15,24 @@ const { project } = Astro.props;
     class="project-card-link"
     href="#contact"
   >
-    <div
-      aria-label={`${project.category} case study`}
-      class="project-photo"
-      data-image={project.image}
-      role="img"
-    >
-      {project.imageUrl ? (
-        <img
-          alt=""
-          height="800"
-          loading="lazy"
-          src={project.imageUrl}
-          width="1200"
-        />
-      ) : null}
-      <span class="sr-only">{project.title}</span>
+    <div class="photo-frame project-photo-frame">
+      <div
+        aria-label={`${project.category} case study`}
+        class="project-photo"
+        data-image={project.image}
+        role="img"
+      >
+        {project.imageUrl ? (
+          <img
+            alt=""
+            height="800"
+            loading="lazy"
+            src={project.imageUrl}
+            width="1200"
+          />
+        ) : null}
+        <span class="sr-only">{project.title}</span>
+      </div>
     </div>
     <h3>{project.title}<span aria-hidden="true">↗</span></h3>
     <p class="project-category">{project.category} / {project.year}</p>

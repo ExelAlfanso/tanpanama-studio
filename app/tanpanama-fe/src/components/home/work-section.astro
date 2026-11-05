@@ -1,0 +1,109 @@
+---
+// biome-ignore-all lint/suspicious/noUnknownAttribute: Astro templates use native HTML attributes.
+import type { Project } from "@tanpanama/contracts";
+import ProjectCard from "../project-card.astro";
+
+interface Props {
+  featured?: Project;
+  otherProjects: Project[];
+  projectsAvailable: boolean;
+}
+
+const { featured, otherProjects, projectsAvailable } = Astro.props;
+---
+
+<div class="page-shell">
+  <section aria-labelledby="work-title" class="work-section" id="work">
+    <div class="section-heading">
+      <h2 id="work-title">Work, not words.</h2>
+      <p class="eyebrow">02 / Selected projects, 2024–26</p>
+    </div>
+    {featured ? (
+      <>
+        <article class="feature-project">
+          <div class="photo-frame">
+            <div
+              aria-label={`${featured.category} case study photograph`}
+              class="feature-photo"
+              data-image={featured.image}
+              role="img"
+            >
+              <div aria-hidden="true" class="feature-photo-image">
+                {featured.imageUrl ? (
+                  <img
+                    alt=""
+                    height="800"
+                    src={featured.imageUrl}
+                    width="1200"
+                  />
+                ) : null}
+              </div>
+              <span class="photo-title">{featured.title}</span>
+              <span class="photo-caption">
+                Always moving.
+                <br />
+                Never standing still.
+              </span>
+            </div>
+          </div>
+          <a class="feature-copy" href="#contact">
+            <div class="project-meta">
+              <span>{featured.title}</span>
+              <span>{featured.year}</span>
+            </div>
+            <h3>
+              A better way
+              <br />
+              from A to B.
+            </h3>
+            <svg aria-hidden="true" class="route-mark" viewBox="0 0 320 140">
+              <path
+                d="M4 112h92l96-94h124v54"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="8"
+              />
+            </svg>
+            <div class="feature-foot">
+              <span>{featured.category}</span>
+              <span>Project 01 / 03</span>
+            </div>
+          </a>
+        </article>
+        <div class="project-description">
+          <h3>
+            {featured.title}
+            <span class="eyebrow">
+              {featured.category} / Brand & digital / {featured.year}
+            </span>
+          </h3>
+          <p>{featured.description}</p>
+          <span class="project-count">Project 01 / 03</span>
+        </div>
+      </>
+    ) : (
+      <div class="empty-projects" role="status">
+        {projectsAvailable
+          ? "Selected projects are being prepared."
+          : "Selected work is temporarily unavailable."}
+      </div>
+    )}
+    {otherProjects.length > 0 && (
+      <div class="project-grid">
+        {otherProjects.map((project) => (
+          <ProjectCard project={project} />
+        ))}
+      </div>
+    )}
+    {projectsAvailable && (
+      <div class="more-work">
+        <a class="subtle-link text-link" href="#contact">
+          More work on request{" "}
+          <span aria-hidden="true" class="arrow-icon">
+            ↗
+          </span>
+        </a>
+      </div>
+    )}
+  </section>
+</div>

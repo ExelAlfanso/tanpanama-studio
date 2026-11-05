@@ -13,13 +13,16 @@ export const ContentDb = Cloudflare.D1.Database("tanpanama-content", {
 
 export const CmsImages = Cloudflare.R2.Bucket("tanpanama-cms-images");
 
+const adminDomain = "admin-tanpanama.alfanso.xyz";
+const adminOrigin = `https://${adminDomain}`;
+
 export const Api = Cloudflare.Worker("tanpanama-api", {
   compatibility: { date: "2026-11-05" },
   env: {
     ADMIN_EMAILS: Config.String("ADMIN_EMAILS"),
-    ADMIN_SITE_URL: Config.String("ADMIN_SITE_URL"),
+    ADMIN_SITE_URL: adminOrigin,
     BETTER_AUTH_SECRET: Config.Redacted("BETTER_AUTH_SECRET"),
-    BETTER_AUTH_URL: Config.String("BETTER_AUTH_URL"),
+    BETTER_AUTH_URL: adminOrigin,
     DB: ContentDb,
     GOOGLE_CLIENT_ID: Config.String("GOOGLE_CLIENT_ID"),
     GOOGLE_CLIENT_SECRET: Config.Redacted("GOOGLE_CLIENT_SECRET"),
@@ -48,7 +51,7 @@ export default Alchemy.Stack(
     });
     const admin = yield* Cloudflare.Website.Vite("tanpanama-admin", {
       dev: { port: 3001 },
-      domain: "admin.tanpanama.alfanso.xyz",
+      domain: adminDomain,
       env: { API_URL: api.url.as<string>() },
       rootDir: "./app/tanpanama-admin",
     });

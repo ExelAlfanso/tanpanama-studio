@@ -1,0 +1,77 @@
+---
+// biome-ignore-all lint/suspicious/noUnknownAttribute: Astro templates use native HTML attributes.
+import type { Project } from "@tanpanama/contracts";
+import ContactFooter from "./contact-footer.astro";
+import HelpSection from "./help-section.astro";
+import HeroSection from "./hero-section.astro";
+import ProcessSection from "./process-section.astro";
+import ServicesSection from "./services-section.astro";
+import SiteHeader from "./site-header.astro";
+import StudioSection from "./studio-section.astro";
+import TerritorySection from "./territory-section.astro";
+import TestimonialSection from "./testimonial-section.astro";
+import WorkSection from "./work-section.astro";
+
+interface Props {
+  featured?: Project;
+  otherProjects: Project[];
+  projectsAvailable: boolean;
+}
+
+const { featured, otherProjects, projectsAvailable } = Astro.props;
+---
+
+<SiteHeader />
+<main id="top">
+  <HeroSection />
+  <TerritorySection />
+  <WorkSection
+    featured={featured}
+    otherProjects={otherProjects}
+    projectsAvailable={projectsAvailable}
+  />
+  <ServicesSection />
+  <ProcessSection />
+  <TestimonialSection />
+  <StudioSection />
+  <HelpSection />
+</main>
+<ContactFooter />
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", () => {
+    gsap
+      .timeline({ defaults: { ease: "power3.out" } })
+      .from(".hero-row", {
+        clearProps: "transform,opacity",
+        duration: 0.55,
+        opacity: 0,
+        stagger: 0.08,
+        y: 18,
+      })
+      .fromTo(
+        ".hero-photo",
+        { clipPath: "inset(0 0 100% 0)" },
+        {
+          clearProps: "clipPath",
+          clipPath: "inset(0 0 0% 0)",
+          duration: 0.75,
+        },
+        0.15
+      );
+
+    gsap.from(".work-section .section-heading", {
+      clearProps: "transform,opacity",
+      duration: 0.55,
+      ease: "power2.out",
+      opacity: 0,
+      scrollTrigger: { once: true, start: "top 95%", trigger: ".work-section" },
+      y: 16,
+    });
+  });
+</script>

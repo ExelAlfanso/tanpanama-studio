@@ -1,0 +1,41 @@
+---
+// biome-ignore-all lint/suspicious/noUnknownAttribute: Astro templates use native HTML attributes.
+type Props = Record<string, never>;
+---
+
+<div class="page-shell">
+  <section aria-labelledby="help-title" class="help">
+    <div>
+      <p class="eyebrow">07 / Where we can help</p>
+      <h2 class="help-title" id="help-title">
+        At a turning point? Good place to start.
+      </h2>
+    </div>
+    <div class="help-grid">
+      <article class="help-card">
+        <h3>A new chapter.</h3>
+        <p>
+          A launch, a merger or a shift in direction. We help you articulate
+          what’s next and build a brand to match.
+        </p>
+        <small>Positioning → Identity → Website</small>
+      </article>
+      <article class="help-card">
+        <h3>A better digital home.</h3>
+        <p>
+          Your business has moved on. Your website hasn’t. We rethink the story,
+          structure and experience.
+        </p>
+        <small>Content → Design → Development</small>
+      </article>
+      <article class="help-card">
+        <h3>A team alongside yours.</h3>
+        <p>
+          For brands we’ve helped build, we stay involved. A senior creative
+          partner for the work that comes next.
+        </p>
+        <small>Ongoing brand & digital support</small>
+      </article>
+    </div>
+  </section>
+</div>

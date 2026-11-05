@@ -29,6 +29,7 @@
 }
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
 }
 body {
   min-width: 320px;
@@ -63,13 +64,38 @@ summary:focus-visible {
   padding-inline: var(--page-gutter);
   margin-inline: auto;
 }
+.photo-frame {
+  overflow: hidden;
+}
+.photo-frame > :is(.hero-photo, .project-photo, .studio-photo) {
+  transition: transform 0.6s ease;
+}
+.photo-frame:hover > :is(.hero-photo, .project-photo, .studio-photo),
+.photo-frame:focus-within > :is(.hero-photo, .project-photo, .studio-photo) {
+  transform: scale(1.04);
+}
+:where(.photo-frame:hover) .feature-photo-image {
+  transform: scale(1.04);
+}
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
   gap: 2rem;
   align-items: center;
-  min-height: 144px;
-  padding-bottom: 28px;
+  width: 100%;
+  min-height: 84px;
+  padding-block: 1rem;
+  padding-inline: max(
+    var(--page-gutter),
+    calc((100vw - 1600px) / 2 + var(--page-gutter))
+  );
+  margin-inline: 0;
+  background: rgb(241 240 233 / 82%);
   border-bottom: 1px solid var(--color-rule);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 .wordmark {
   display: inline-flex;
@@ -88,16 +114,45 @@ summary:focus-visible {
   gap: clamp(1rem, 3vw, 3.25rem);
   align-items: center;
   margin-left: auto;
-  font-size: 0.78rem;
+  font-size: 0.84rem;
 }
 .primary-nav a,
+.mobile-nav a,
 .footer-links a {
+  position: relative;
   text-decoration: none;
 }
+a:hover,
+summary:hover {
+  color: var(--color-lime);
+}
+.primary-nav a::after,
+.mobile-nav nav a::after {
+  position: absolute;
+  right: 0;
+  bottom: -0.2rem;
+  left: 0;
+  height: 1px;
+  content: "";
+  background: var(--color-muted);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.primary-nav a:hover::after,
+.primary-nav a:focus-visible::after,
+.mobile-nav nav a:hover::after,
+.mobile-nav nav a:focus-visible::after {
+  transform: scaleX(1);
+}
 .primary-nav a:hover,
-.footer-links a:hover {
-  text-decoration: underline;
-  text-underline-offset: 0.3em;
+.primary-nav a:focus-visible,
+.mobile-nav a:hover,
+.mobile-nav a:focus-visible,
+.mobile-nav summary:hover,
+.subtle-link:hover,
+.subtle-link:focus-visible {
+  color: var(--color-muted);
 }
 .talk-link {
   display: inline-flex;
@@ -118,6 +173,14 @@ summary:focus-visible {
 .talk-link:hover {
   color: var(--color-ink);
   background: var(--color-lime);
+}
+.arrow-icon {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+a:hover .arrow-icon,
+a:focus-visible .arrow-icon {
+  transform: translate(4px, -4px);
 }
 .mobile-nav {
   display: none;
@@ -282,9 +345,6 @@ summary:focus-visible {
   text-decoration: none;
   border-bottom: 1px solid currentColor;
 }
-.text-link:hover {
-  color: var(--color-muted);
-}
 .territory {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -332,12 +392,12 @@ summary:focus-visible {
   grid-template-columns: 1.6fr 0.95fr;
   min-height: 31rem;
 }
-.feature-photo,
+.feature-photo-image,
 .project-photo {
   background-image: url("/images/tanpanama-reference.png");
   background-repeat: no-repeat;
 }
-.feature-photo > img,
+.feature-photo-image > img,
 .project-photo > img {
   position: absolute;
   inset: 0;
@@ -355,8 +415,13 @@ summary:focus-visible {
   position: relative;
   min-height: 31rem;
   color: white;
+}
+.feature-photo-image {
+  position: absolute;
+  inset: 0;
   background-position: 10% 24.5%;
   background-size: 176% auto;
+  transition: transform 0.6s ease;
 }
 .photo-title {
   position: absolute;
@@ -382,6 +447,11 @@ summary:focus-visible {
   color: var(--color-ink);
   text-decoration: none;
   background: var(--color-lime);
+  transition: color 0.2s ease;
+}
+.feature-copy:hover,
+.feature-copy:focus-visible {
+  color: var(--color-muted);
 }
 .project-meta {
   display: flex;
@@ -448,11 +518,14 @@ summary:focus-visible {
   color: inherit;
   text-decoration: none;
 }
-.project-photo {
+.project-photo-frame {
   position: relative;
   aspect-ratio: 1.72;
-  overflow: hidden;
   background-color: var(--color-sage);
+}
+.project-photo {
+  position: absolute;
+  inset: 0;
 }
 .project-photo[data-image="ordinal"] {
   background-position: 7% 35%;
@@ -529,6 +602,7 @@ summary:focus-visible {
   align-items: start;
   padding: 1.5rem 0 1.8rem;
   border-top: 1px solid #4b4c44;
+  transition: transform 0.3s ease;
 }
 .service-number {
   font-size: 0.68rem;
@@ -538,7 +612,14 @@ summary:focus-visible {
   margin: 0 0 0.6rem;
   font-size: clamp(1.4rem, 2vw, 1.9rem);
   font-weight: 400;
+  color: inherit;
   letter-spacing: -0.05em;
+  transition: color 0.2s ease;
+}
+.service-item:hover,
+.service-item:focus-within {
+  color: var(--color-lime);
+  transform: translateX(6px);
 }
 .service-item p {
   max-width: 45rem;
@@ -556,6 +637,14 @@ summary:focus-visible {
 }
 .service-arrow {
   font-size: 1.3rem;
+  transition:
+    color 0.2s ease,
+    transform 0.25s ease;
+}
+.service-item:hover .service-arrow,
+.service-item:focus-within .service-arrow {
+  color: var(--color-lime);
+  transform: translate(4px, -4px);
 }
 
 .process {
@@ -602,7 +691,13 @@ summary:focus-visible {
   text-transform: uppercase;
 }
 .process-step-head span:first-child {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  min-height: 1.25rem;
   color: var(--color-lime);
+  background: var(--color-ink);
 }
 .process-step h3 {
   margin: 1.5rem 0 0.8rem;
@@ -823,7 +918,7 @@ summary:focus-visible {
 @media (max-width: 760px) {
   .site-header {
     min-height: 76px;
-    padding-bottom: 0;
+    padding-block: 0.75rem;
   }
   .site-header > .primary-nav,
   .site-header > .talk-link {
@@ -834,7 +929,7 @@ summary:focus-visible {
     display: block;
   }
   .mobile-nav summary {
-    font-size: 0.8rem;
+    font-size: 0.84rem;
     cursor: pointer;
     list-style: none;
   }
@@ -854,6 +949,7 @@ summary:focus-visible {
     border: 1px solid var(--color-rule);
   }
   .mobile-nav nav a {
+    font-size: 0.84rem;
     text-decoration: none;
   }
   .hero-title {
@@ -891,7 +987,7 @@ summary:focus-visible {
   .feature-copy {
     min-height: 23rem;
   }
-  .feature-photo {
+  .feature-photo-image {
     background-position: 9% 25%;
     background-size: 238% auto;
   }

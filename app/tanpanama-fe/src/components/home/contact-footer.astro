@@ -1,0 +1,40 @@
+---
+// biome-ignore-all lint/suspicious/noUnknownAttribute: Astro templates use native HTML attributes.
+type Props = Record<string, never>;
+---
+
+<footer class="dark-section" id="contact">
+  <div class="contact page-shell">
+    <p class="eyebrow">08 / Next conversation</p>
+    <div class="contact-main">
+      <h2>Let’s make<br>it make sense.</h2>
+      <div>
+        <p class="contact-note">
+          Tell us what’s changing in your business. We’ll tell you honestly how
+          we can help.
+        </p>
+        <a class="email-link" href="mailto:hello@tanpanama.studio"
+          >hello@tanpanama.studio
+          <span aria-hidden="true" class="arrow-icon">↗</span></a
+        >
+        <p class="contact-caption">No deck required. A few lines will do.</p>
+      </div>
+    </div>
+    <div class="footer-top">
+      <span>Indonesia</span>
+      <div class="footer-links">
+        <a href="#contact">LinkedIn ↗</a>　<a href="#contact">Instagram ↗</a>
+      </div>
+    </div>
+    <div class="footer-top">
+      <a class="wordmark footer-brand" href="#top"
+        ><span>TANPA NAMA</span><strong>STUDIO</strong></a
+      >
+    </div>
+    <div class="footer-bottom">
+      <span>© Tanpa Nama Studio 2026</span
+      ><span>Independent thinking. Considered design.</span
+      ><a href="#contact">Privacy & cookies</a>
+    </div>
+  </div>
+</footer>

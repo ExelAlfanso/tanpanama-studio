@@ -1,0 +1,25 @@
+---
+// biome-ignore-all lint/suspicious/noUnknownAttribute: Astro templates use native HTML attributes.
+type Props = Record<string, never>;
+---
+
+<header class="site-header page-shell">
+  <a aria-label="Tanpa Nama Studio home" class="wordmark" href="#top"
+    ><span>TANPA NAMA</span><strong>STUDIO</strong></a
+  >
+  <nav aria-label="Main navigation" class="primary-nav">
+    <a href="#work">Work</a>
+    <a href="#expertise">Expertise</a>
+    <a href="#studio">Studio</a>
+  </nav>
+  <a class="talk-link" href="#contact"
+    >Let’s talk <span aria-hidden="true" class="arrow-icon">↗</span></a
+  >
+  <details class="mobile-nav">
+    <summary>Menu</summary>
+    <nav aria-label="Mobile navigation">
+      <a href="#work">Work</a><a href="#expertise">Expertise</a
+      ><a href="#studio">Studio</a><a href="#contact">Let’s talk</a>
+    </nav>
+  </details>
+</header>

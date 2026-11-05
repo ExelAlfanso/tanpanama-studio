@@ -1,0 +1,41 @@
+---
+// biome-ignore-all lint/suspicious/noUnknownAttribute: Astro templates use native HTML attributes.
+type Props = Record<string, never>;
+---
+
+<div class="page-shell">
+  <section aria-labelledby="hero-title" class="hero">
+    <h1 class="hero-title" id="hero-title">
+      <span class="hero-row hero-row-one"
+        ><span>Complex</span
+        ><span aria-hidden="true" class="hero-blocks wide"></span></span
+      >
+      <span class="hero-row hero-row-two"
+        ><span aria-hidden="true" class="hero-blocks short"></span
+        ><em>business,</em
+        ><span aria-hidden="true" class="hero-blocks"></span></span
+      >
+      <span class="hero-row hero-row-three"
+        ><span aria-hidden="true" class="hero-blocks"></span><span>Clear</span
+        ><span aria-hidden="true" class="hero-blocks short"></span></span
+      >
+    </h1>
+    <div class="photo-frame">
+      <div
+        aria-label="A traveller carries a worn leather bag, marked with bright lime lettering"
+        class="hero-photo"
+        role="img"
+      ></div>
+    </div>
+    <div class="hero-summary">
+      <p>
+        We turn complicated B2B propositions into brands people understand,
+        websites they use, and stories they remember.
+      </p>
+      <a class="text-link subtle-link" href="#work"
+        >Explore our work
+        <span aria-hidden="true" class="arrow-icon">↗</span></a
+      >
+    </div>
+  </section>
+</div>

@@ -23,7 +23,7 @@ Alchemy's Astro provider supplies the server adapter and production build during
 - `bun run ci`: lint with Ultracite/Biome, typecheck, and test.
 - `bun run deploy`: build and deploy the production stack with Alchemy.
 
-The public site is deployed at `https://tanpanama.alfanso.xyz` and the CMS admin at `https://admin.tanpanama.alfanso.xyz`. Create local `.env` files from the `.env.example` files. Never commit credentials. The API admin allowlist is the comma-separated `ADMIN_EMAILS` value; Google OAuth only admits verified emails on that list.
+The public site is deployed at `https://tanpanama.alfanso.xyz` and the CMS admin at `https://admin-tanpanama.alfanso.xyz`. Create local `.env` files from the `.env.example` files. Never commit credentials. The API admin allowlist is the comma-separated `ADMIN_EMAILS` value; Google OAuth only admits verified emails on that list.
 
 ## Frontend slicing
 
