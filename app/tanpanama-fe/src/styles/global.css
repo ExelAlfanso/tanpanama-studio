@@ -460,7 +460,29 @@ a:focus-visible .arrow-icon {
   font-size: 0.72rem;
   text-transform: uppercase;
 }
+:where(.feature-copy, .project-card-link) h3::after {
+  position: absolute;
+  right: 0;
+  bottom: -0.2rem;
+  left: 0;
+  height: 1px;
+  content: "";
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+:where(
+    .feature-copy:hover,
+    .project-card-link:hover,
+    .feature-copy:focus-visible,
+    .project-card-link:focus-visible
+  )
+  h3::after {
+  transform: scaleX(1);
+}
 .feature-copy h3 {
+  position: relative;
   max-width: 20rem;
   margin: 1.5rem 0;
   font-size: clamp(2.4rem, 4vw, 3.9rem);
@@ -536,6 +558,7 @@ a:focus-visible .arrow-icon {
   background-size: 238% auto;
 }
 .project-card h3 {
+  position: relative;
   display: flex;
   gap: 1rem;
   justify-content: space-between;
